@@ -1,0 +1,16 @@
+
+.navbarContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbarLogo{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+
