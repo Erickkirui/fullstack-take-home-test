@@ -50,8 +50,11 @@ export default function NavTabs({ toReadBooks }) { // Accept toReadBooks as a pr
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '90%'  ,marginLeft: 'auto',
+    marginRight: 'auto',  }}>
       <Tabs
+      sx={{ width: '100%'  ,marginLeft: 'auto',
+      marginRight: 'auto',  }}
         value={value}
         onChange={handleChange}
         aria-label="nav tabs example"

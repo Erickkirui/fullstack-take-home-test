@@ -20,21 +20,28 @@ const BookList = () => {
   const { loading, error, data } = useQuery(GET_BOOKS);
   const [currentPage, setCurrentPage] = useState(1);
   const [toReadBooks, setToReadBooks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const booksPerPage = 9;
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // Filter books based on the search term
+  const filteredBooks = data.books.filter((book) =>
+    book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    book.author.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Calculate the books to display on the current page
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = data.books.slice(indexOfFirstBook, indexOfLastBook);
+  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(data.books.length / booksPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(filteredBooks.length / booksPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -44,7 +51,13 @@ const BookList = () => {
 
   return (
     <div>
-      <h1>Book List</h1>
+      <input
+        type="text"
+        placeholder="I am looking for ..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"
+      />
       <div className="book-list">
         {currentBooks.map((book, index) => (
           <BookCard
