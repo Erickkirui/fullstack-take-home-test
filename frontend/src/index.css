@@ -8,4 +8,9 @@ body {
 
 }
 
+:root{
+  --primary : #28B8B8;
+  --secondary: #335C6E;
+}
+
 

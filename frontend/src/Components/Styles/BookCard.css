@@ -46,7 +46,7 @@
   
   .book-card button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: var(--primary);
     color: white;
     border: none;
     border-radius: 5px;
@@ -65,7 +65,7 @@
   right: 5px; /* Adjust right position to position it at the right */
   background: white;
   border: none;
-  color: red;
+  color: var(--primary);
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
@@ -76,6 +76,6 @@
 }
 
 .remove-button:hover {
-  color: darkred;
+  color: var(--primary);
 }
   

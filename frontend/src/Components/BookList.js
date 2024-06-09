@@ -73,7 +73,7 @@ const BookList = ({ addToRead }) => {
           </Alert>
         )}
       </div>
-      
+
       {/* Book list */}
       <div className="book-list">
         {currentBooks.map((book, index) => (
@@ -89,8 +89,11 @@ const BookList = ({ addToRead }) => {
       </div>
 
       {/* Pagination */}
+      <p>More books</p>
       <div className="pagination">
+      
         {pageNumbers.map((number) => (
+          
           <button key={number} onClick={() => paginate(number)} className="page-number">
             {number}
           </button>

@@ -79,7 +79,7 @@ export default function NavTabs() {
         role="navigation"
       >
         <LinkTab label="List of All Books" href="/all-books" />
-        <LinkTab label="Selected Books" href="/selected-books" />
+        <LinkTab label="Reading List" href="/selected-books" />
       </Tabs>
       <Box sx={{ padding: 2 }}>
         {value === 0 && <BookList addToRead={addToRead} />}
