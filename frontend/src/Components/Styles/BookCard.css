@@ -57,5 +57,25 @@
   .book-card button:hover {
     background-color: #0056b3;
   }
-  
+
+
+.remove-button {
+  position: absolute;
+  top: 5px; /* Adjust top position to position it at the top */
+  right: 5px; /* Adjust right position to position it at the right */
+  background: white;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1; /* Ensure the button appears above the overlay */
+}
+
+.remove-button:hover {
+  color: darkred;
+}
   
