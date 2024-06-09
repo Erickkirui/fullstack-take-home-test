@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import AllBooks from './Allbooks';
-import SelectedBooks from './SelectedBooks';
+import BookList from './booklist';
+import ToReadList from './ToReadList';
 
 function samePageLinkNavigation(event) {
   if (
@@ -35,7 +35,7 @@ function LinkTab(props) {
   );
 }
 
-export default function NavTabs() {
+export default function NavTabs({ toReadBooks }) { // Accept toReadBooks as a prop
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -61,8 +61,8 @@ export default function NavTabs() {
         <LinkTab label="Selected Books" href="/selected-books" />
       </Tabs>
       <Box sx={{ padding: 2 }}>
-        {value === 0 && <AllBooks />}
-        {value === 1 && <SelectedBooks />}
+        {value === 0 &&  <BookList />}
+        {value === 1 && <ToReadList books={toReadBooks} />}
       </Box>
     </Box>
   );

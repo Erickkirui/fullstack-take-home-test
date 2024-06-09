@@ -1,7 +1,7 @@
 import React from 'react';
 import './Styles/BookCard.css'; // Import the CSS file for additional styling
 
-const BookCard = ({ title, author, coverPhotoURL, readingLevel }) => {
+const BookCard = ({ title, author, coverPhotoURL, readingLevel, onAddToRead }) => {
   return (
     <div
       className="book-card"
@@ -12,7 +12,7 @@ const BookCard = ({ title, author, coverPhotoURL, readingLevel }) => {
           <h2>{title}</h2>
           <p>By {author}</p>
           <p>Reading Level: {readingLevel}</p>
-          <button>Add to read</button>
+          <button onClick={onAddToRead}>Add to read</button>
         </div>
       </div>
     </div>
