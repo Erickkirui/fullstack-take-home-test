@@ -59,6 +59,10 @@ export default function NavTabs() {
     });
   };
 
+  const removeFromToRead = (bookToRemove) => {
+    setToReadBooks((prevBooks) => prevBooks.filter((book) => book.title !== bookToRemove.title));
+  };
+
   const handleChange = (event, newValue) => {
     if (samePageLinkNavigation(event)) {
       setValue(newValue);
@@ -79,7 +83,7 @@ export default function NavTabs() {
       </Tabs>
       <Box sx={{ padding: 2 }}>
         {value === 0 && <BookList addToRead={addToRead} />}
-        {value === 1 && <ToReadList books={toReadBooks} />}
+        {value === 1 && <ToReadList books={toReadBooks} removeFromToRead={removeFromToRead} />}
       </Box>
     </Box>
   );
