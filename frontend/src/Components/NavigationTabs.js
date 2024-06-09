@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import BookList from './booklist';
+import BookList from './BookList';
 import ToReadList from './ToReadList';
 
 function samePageLinkNavigation(event) {
@@ -35,26 +35,40 @@ function LinkTab(props) {
   );
 }
 
-export default function NavTabs({ toReadBooks }) { // Accept toReadBooks as a prop
+export default function NavTabs() {
   const [value, setValue] = useState(0);
+  const [toReadBooks, setToReadBooks] = useState([]);
+
+  useEffect(() => {
+    const storedToReadBooks = localStorage.getItem('toReadBooks');
+    if (storedToReadBooks) {
+      setToReadBooks(JSON.parse(storedToReadBooks));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('toReadBooks', JSON.stringify(toReadBooks));
+  }, [toReadBooks]);
+
+  const addToRead = (book) => {
+    setToReadBooks((prevBooks) => {
+      if (!prevBooks.some((b) => b.title === book.title)) {
+        return [...prevBooks, book];
+      }
+      return prevBooks;
+    });
+  };
 
   const handleChange = (event, newValue) => {
-    // event.type can be equal to focus with selectionFollowsFocus.
-    if (
-      event.type !== 'click' ||
-      (event.type === 'click' &&
-        samePageLinkNavigation(event))
-    ) {
+    if (samePageLinkNavigation(event)) {
       setValue(newValue);
     }
   };
 
   return (
-    <Box sx={{ width: '90%'  ,marginLeft: 'auto',
-    marginRight: 'auto',  }}>
+    <Box sx={{ width: '90%', marginLeft: 'auto', marginRight: 'auto' }}>
       <Tabs
-      sx={{ width: '100%'  ,marginLeft: 'auto',
-      marginRight: 'auto',  }}
+        sx={{ width: '100%', marginLeft: 'auto', marginRight: 'auto' }}
         value={value}
         onChange={handleChange}
         aria-label="nav tabs example"
@@ -64,7 +78,7 @@ export default function NavTabs({ toReadBooks }) { // Accept toReadBooks as a pr
         <LinkTab label="Selected Books" href="/selected-books" />
       </Tabs>
       <Box sx={{ padding: 2 }}>
-        {value === 0 &&  <BookList />}
+        {value === 0 && <BookList addToRead={addToRead} />}
         {value === 1 && <ToReadList books={toReadBooks} />}
       </Box>
     </Box>

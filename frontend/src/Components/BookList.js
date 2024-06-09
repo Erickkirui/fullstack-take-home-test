@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client';
 import BookCard from './SingleBookCard';
-import ToReadList from './ToReadList';
 import './Styles/BookList.css';
 
 const GET_BOOKS = gql`
@@ -16,38 +15,30 @@ const GET_BOOKS = gql`
   }
 `;
 
-const BookList = () => {
+const BookList = ({ addToRead }) => {
   const { loading, error, data } = useQuery(GET_BOOKS);
   const [currentPage, setCurrentPage] = useState(1);
-  const [toReadBooks, setToReadBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const booksPerPage = 9;
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Filter books based on the search term
   const filteredBooks = data.books.filter((book) =>
     book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     book.author.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Calculate the books to display on the current page
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(filteredBooks.length / booksPerPage); i++) {
     pageNumbers.push(i);
   }
-
-  const addToRead = (book) => {
-    setToReadBooks((prevBooks) => [...prevBooks, book]);
-  };
 
   return (
     <div>
@@ -77,7 +68,6 @@ const BookList = () => {
           </button>
         ))}
       </div>
-      <ToReadList books={toReadBooks} />
     </div>
   );
 };
